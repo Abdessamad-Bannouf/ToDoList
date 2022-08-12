@@ -32,19 +32,29 @@
         {
             $crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('app_login'));
 
+            $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
             $form = $crawler->selectButton('Sign in')->form();
             $form['email'] = 'abdessamad.bannouf@laposte.net';
             $form['password'] = 'test1234';
 
             $this->client->submit($form);
 
-            $crawler = $this->client->followRedirect();
+            $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+            $crawler = $this->client->followRedirect();             
 
             $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
             $this->assertSame('Se déconnecter', $crawler->filter('a.pull-right.btn.btn-danger')->text());
+        }
+
+        public function testLogout()
+        {
+            $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('app_logout'));
+            $this->client->followRedirect();
 
             $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+            
         }
     }
 ?>

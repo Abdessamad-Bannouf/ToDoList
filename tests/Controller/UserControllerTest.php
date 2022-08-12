@@ -68,7 +68,7 @@
         public function testUserEdit()
         {
             //$crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('user_create'));
-            $crawler = $this->client->request(Request::METHOD_GET, "/users/" . "2" . "/edit");
+            $crawler = $this->client->request(Request::METHOD_GET, "/users/" . rand(1, 6) . "/edit");
 
             $this->assertSame('Nom d\'utilisateur', $crawler->filter('label[for="user_username"]')->text());
             $this->assertEquals(1, $crawler->filter('input[name="user[username]"]')->count());
@@ -97,7 +97,7 @@
         // FEATURE DELETE USER NON EXISTANTE
         /*public function testUserDelete()
         {
-            $crawler = $this->client->request(Request::METHOD_GET, "/tasks/" . "14" . "/delete");
+            $crawler = $this->client->request(Request::METHOD_GET, "/tasks/" . rand(1, 6) . "/delete");
 
             $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
 

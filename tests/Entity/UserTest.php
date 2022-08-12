@@ -50,5 +50,13 @@
         {
             $this->assertHasErrors($this->getEntity()->setUsername(""), 1);
         }
+
+        public function testSalt()
+        {
+            $user = new User();
+            $result = $user->getSalt();
+
+            $this->assertSame($result, null);
+        }
     }
 ?>

@@ -2,7 +2,8 @@
     namespace App\Test\Entity;
 
     use App\Entity\Task;
-    use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use DateTime;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
     class TaskTest extends KernelTestCase
     {
@@ -49,6 +50,16 @@
         public function testInvalidBlankContentEntity()
         {
             $this->assertHasErrors($this->getEntity()->setContent(""), 1);
+        }
+
+        public function testCreatedAt()
+        {
+            $task = new Task();
+            $dateTime = new \DateTime();
+            $task->setCreatedAt($dateTime);
+            $result = $task->getCreatedAt();
+    
+            $this->assertSame($dateTime, $result);
         }
     }
 ?>
