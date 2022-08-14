@@ -1,5 +1,5 @@
 <?php 
-    namespace App\Test\Entity;
+    namespace App\Tests\Entity;
 
     use App\Entity\User;
     use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

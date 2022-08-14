@@ -1,9 +1,9 @@
 <?php 
-    namespace App\Test\Entity;
+    namespace App\Tests\Entity;
 
     use App\Entity\Task;
-use DateTime;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+    use DateTime;
+    use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
     class TaskTest extends KernelTestCase
     {

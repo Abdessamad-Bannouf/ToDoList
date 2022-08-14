@@ -1,5 +1,5 @@
 <?php 
-    namespace App\Tests\Form\Type;
+    namespace App\Tests\Form;
 
     use App\Form\TaskType;
     use App\Entity\Task;
