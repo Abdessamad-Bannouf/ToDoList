@@ -125,7 +125,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
-    public function getSalt(): ?string
+    public function getSalt()
     {
         return null;
     }
