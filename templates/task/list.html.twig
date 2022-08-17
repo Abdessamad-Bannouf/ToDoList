@@ -16,6 +16,14 @@
                     <p>{{ task.content }}</p>
                 </div>
                 <div>
+                    {% if task.author is null %}
+                        <p>auteur: Anonyme</p>
+                        {% else %}
+                            <p>auteur: {{ task.author.username }}</p>
+                            <p>le: {{ task.createdAt | date('Y-m-d') }}</p>
+                    {% endif %}
+                </div>
+                <div>
                     <form action="{{ path('task_toggle', {'id' : task.id }) }}">
                         <button class="btn btn-success btn-sm pull-right">
                             {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}

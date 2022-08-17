@@ -13,6 +13,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 */
 class UserFixtures extends Fixture
 {
+    public const USER_REFERENCE = 'user';
+
     public function __construct(UserPasswordHasherInterface $encoder)
     {
         $this->encoder = $encoder;
@@ -26,7 +28,7 @@ class UserFixtures extends Fixture
         $faker = Factory::create('fr_FR');
 
         // Créer 10 utilisateurs
-        for ($j=0; $j<10; $j++)
+        for ($i=0; $i<10; $i++)
         {
             $user = new User;
 
@@ -35,7 +37,7 @@ class UserFixtures extends Fixture
                 ->setPassword($this->encoder->hashPassword($user, 'password'))
                 ->setUsername($faker->userName);
 
-            if($j === 9)
+            if($i === 9)
             {
                 $user = new User;
 
@@ -44,6 +46,8 @@ class UserFixtures extends Fixture
                 ->setPassword($this->encoder->hashPassword($user, 'test1234'))
                 ->setUsername('Masakyu');
             }
+
+            $this->addReference(self::USER_REFERENCE . '_' . $i , $user);
 
             $manager->persist($user);
         }
