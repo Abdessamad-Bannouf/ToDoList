@@ -23,7 +23,18 @@
 
             $this->testUser = $this->userRepository->findOneByEmail('abdessamad.bannouf@laposte.net');
 
-            $this->client->loginUser($this->testUser);
+            //$this->client->loginUser($this->testUser);
+        }
+
+        public function loginWithAdmin(): void
+        {
+            $crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('app_login'));
+
+            $form = $crawler->selectButton('Sign in')->form();
+            $form['email'] = 'abdessamad.bannouf@laposte.net';
+            $form['password'] = 'test1234';
+
+            $this->client->submit($form);
         }
 
         public function testTaskList()
@@ -57,6 +68,7 @@
 
         public function testTaskEdit()
         {
+            $this->loginWithAdmin();
             //$crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('task_edit'), ["id"=>1]);
             $crawler = $this->client->request(Request::METHOD_GET, "/tasks/" . rand(1, 6) . "/edit");
 
