@@ -17,7 +17,6 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        dump($this->getReference(UserFixtures::USER_REFERENCE . '_' . mt_rand(0,9)));
         // $product = new Product();
         // $manager->persist($product);
 
