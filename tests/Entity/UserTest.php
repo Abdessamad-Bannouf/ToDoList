@@ -1,7 +1,8 @@
 <?php 
     namespace App\Tests\Entity;
 
-    use App\Entity\User;
+use App\Entity\Task;
+use App\Entity\User;
     use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
     class UserTest extends KernelTestCase
@@ -57,6 +58,35 @@
             $result = $user->getSalt();
 
             $this->assertSame($result, null);
+        }
+
+        public function testAddTasks()
+        {
+            $task1 = new Task;
+            $task2 = new Task;
+
+            $user = $this->getEntity()->addTask($task1);
+
+            $this->assertSame($task1->getUser(), $user);
+            // On s'assure qu'il y a qu'une tâche
+            $this->assertCount(1, $user->getTasks());
+            
+            // On s'assure qu'il y a deux tâches
+            $this->assertCount(2, $user->addTask($task2)->getTasks());
+        }
+
+        public function testRemoveTasks()
+        {
+            $task1 = new Task;
+            $task2 = new Task;
+
+            $user = $this->getEntity()->addTask($task1)->addTask($task2);
+
+            // On s'assure de supprimer la premiere tâche
+            $this->assertCount(1, $user->removeTask($task1)->getTasks());
+
+            $this->assertCount(0, $user->removeTask($task2)->getTasks());
+            $this->assertSame(null, $task2->getUser());
         }
     }
 ?>

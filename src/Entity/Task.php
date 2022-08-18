@@ -29,7 +29,7 @@ class Task
     private $isDone;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
-    public ?User $author;
+    public ?User $author = null;
     
     public function getId(): ?int
     {
@@ -79,7 +79,7 @@ class Task
         return $this->author;
     }
 
-    public function setUser(User $author): self
+    public function setUser(?User $author): self
     {
         $this->author = $author;
 
