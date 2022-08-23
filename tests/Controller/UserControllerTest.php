@@ -67,7 +67,6 @@
 
         public function testUserEdit()
         {
-            //$crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('user_create'));
             $crawler = $this->client->request(Request::METHOD_GET, "/users/" . rand(1, 6) . "/edit");
 
             $this->assertSame('Nom d\'utilisateur', $crawler->filter('label[for="user_username"]')->text());
