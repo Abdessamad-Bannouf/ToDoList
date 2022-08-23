@@ -22,8 +22,6 @@
             $this->userRepository = $this->client->getContainer()->get('doctrine.orm.entity_manager')->getRepository(User::class);
 
             $this->testUser = $this->userRepository->findOneByEmail('abdessamad.bannouf@laposte.net');
-
-            //$this->client->loginUser($this->testUser);
         }
 
         public function loginWithAdmin(): void
@@ -69,7 +67,7 @@
         public function testTaskEdit()
         {
             $this->loginWithAdmin();
-            //$crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('task_edit'), ["id"=>1]);
+
             $crawler = $this->client->request(Request::METHOD_GET, "/tasks/" . rand(1, 6) . "/edit");
 
             $this->assertSame('Title', $crawler->filter('label[for="task_title"]')->text());
@@ -89,17 +87,6 @@
             $this->assertSelectorTextContains('div.alert.alert-success','Superbe ! La tâche a bien été modifiée.');
         }
 
-        public function testTaskDelete()
-        {
-            $crawler = $this->client->request(Request::METHOD_GET, "/tasks/" . rand(1, 6) . "/delete");
-
-            $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-
-            $crawler = $this->client->followRedirect();
-
-            $this->assertSelectorTextContains('div.alert.alert-success','Superbe ! La tâche a bien été supprimée.');
-        }
-
         public function testToggleTask()
         {
             $crawler = $this->client->request(Request::METHOD_GET, "/tasks/" . rand(1, 6) . "/toggle");
@@ -110,6 +97,19 @@
 
             $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
             $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
+        }
+
+        public function testTaskDelete()
+        {
+            $this->loginWithAdmin();
+
+            $crawler = $this->client->request(Request::METHOD_GET, "/tasks/" . rand(1, 6) . "/delete");
+
+            $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+            $crawler = $this->client->followRedirect();
+
+            $this->assertSelectorTextContains('div.alert.alert-success','Superbe ! La tâche a bien été supprimée.');
         }
     }
 ?>
