@@ -28,7 +28,7 @@ class TaskVoter extends Voter
         }
 
         // Check si l'utilisateur est administrateur
-        if (in_array('ROLE_ADMIN', $user->getRoles()) /*OR in_array('ROLE_ADMIN', $user->getRoles())*/ AND $subject->getUser() === NULL) {
+        if (in_array('ROLE_ADMIN', $user->getRoles()) OR in_array('ROLE_ADMIN', $user->getRoles()) AND $subject->getUser() === NULL) {
             return true;
         }
 
@@ -36,7 +36,7 @@ class TaskVoter extends Voter
         switch ($attribute) {
             // Logique qui détermine si l'utilisateur peut DELETE / EDIT
             case self::EDIT || self::DELETE:
-                return $subject->getUser()->getId() === $user->getId();
+                return $subject->getUser() === $user;
                 break;
         }
 

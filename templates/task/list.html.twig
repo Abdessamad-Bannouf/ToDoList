@@ -30,7 +30,11 @@
                         </button>
                     </form>
                     <form action="{{ path('task_delete', {'id' : task.id }) }}">
-                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                        {% if ((task.user) is same as(app.user)) or (is_granted('ROLE_ADMIN')) and (task.user is null) %}
+                            <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                        {% endif %}
+                    {% endif %}
                     </form>
                 </div>
             </div>
