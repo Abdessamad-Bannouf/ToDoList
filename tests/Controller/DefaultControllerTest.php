@@ -20,14 +20,14 @@
 
         public function testHomepageIsUp()
         {
-            $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('app_default_index.name'));
+            $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('homepage'));
 
             $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         }
 
         public function testIndex()
         {
-            $crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('app_default_index.name'));
+            $crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('homepage'));
             
             $this->assertSame(1,$crawler->filter('html:contains("Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !")')->count());
         }
