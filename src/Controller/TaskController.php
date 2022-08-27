@@ -8,6 +8,7 @@ use App\Repository\TaskRepository;
 use App\Security\Voter\TaskVoter;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,6 +48,9 @@ class TaskController extends AbstractController
     }
 
     #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
+    /**
+     * @IsGranted("TASK_EDIT", subject="task", message="Vous ne pouvez modifier que vos propres tâches ou les tâches anonymes si vous avez un role admin")
+     */
     public function editAction(Task $task, Request $request, ManagerRegistry $doctrine)
     {
         $this->denyAccessUnlessGranted('TASK_EDIT', $task);
@@ -77,6 +81,9 @@ class TaskController extends AbstractController
     }
 
     #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
+    /**
+     * @IsGranted("TASK_DELETE", subject="task", message="Vous ne pouvez supprimer que vos propres tâches ou les tâches anonymes si vous avez un role admin")
+     */
     public function deleteTaskAction(Task $task, ManagerRegistry $doctrine)
     {
         $this->denyAccessUnlessGranted('TASK_DELETE', $task);
