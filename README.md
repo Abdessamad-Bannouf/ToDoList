@@ -1,4 +1,4 @@
-# BileMo
+# ToDoList
 
 
 # Installation du projet :  
@@ -21,3 +21,14 @@
 # Lancer les tests : 
 
     Lancer la commande : vendor/bin/phpunit --coverage-html public/test-coverage
+
+
+
+
+# Authentification :  
+
+    ● Pour se connecter en tant qu'utilisateur: 
+        email => user@test.com, mot de passe => user
+    
+    ● Pour se connecter en tant qu'administrateur: 
+        email => admin@test.com, mot de passe => admin

@@ -50,6 +50,26 @@ class UserFixtures extends Fixture
             $this->addReference(self::USER_REFERENCE . '_' . $i , $user);
 
             $manager->persist($user);
+
+            if($i === 9) {
+                $user = new User;
+
+                $user->setEmail('user@test.com')
+                    ->setRoles(["ROLE_USER"])
+                    ->setPassword($this->encoder->hashPassword($user, 'user'))
+                    ->setUsername($faker->userName);
+
+                $manager->persist($user);
+                
+                $user = new User;
+
+                $user->setEmail('admin@test.com')
+                    ->setRoles(["ROLE_ADMIN"])
+                    ->setPassword($this->encoder->hashPassword($user, 'admin'))
+                    ->setUsername($faker->userName);
+
+                $manager->persist($user);
+            }
         }
         
         
